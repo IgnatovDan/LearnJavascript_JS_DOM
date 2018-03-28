@@ -1,4 +1,5 @@
 This is my solution for the 'Создайте калькулятор для введённых значений' task (https://learn.javascript.ru/task/calculator-for-input):
+
 Напишите код, который:
 
 Запрашивает по очереди значения при помощи prompt и сохраняет их в массиве.
