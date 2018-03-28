@@ -14,5 +14,4 @@ sum(0)(1)(2)(3)(4)(5) == 15
 
 Количество скобок может быть любым.
       
-Click to review how it works at runtime:
-https://htmlpreview.github.io/?https://github.com/IgnatovDan/LearnJavascript_JS_DOM/blob/master/sum-many-brackets/index.html
+<a href="https://htmlpreview.github.io/?https://github.com/IgnatovDan/LearnJavascript_JS_DOM/blob/master/sum-many-brackets/index.html" target="_blank">Click here to review how it works at runtime</a>
