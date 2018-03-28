@@ -28,7 +28,7 @@ let myscript1Element = document.getElementById('myscript1');
 myscript1Element.innerText = sum.toString();
 
 let testResultsElement = document.getElementById('testresults1');
-testResultsElement.innerText = 'Starting tests...'
+testResultsElement.innerText = 'Starting tests...';
 let failedTests = '';
 tests.forEach((entry) => { 
   if(!entry()) {
