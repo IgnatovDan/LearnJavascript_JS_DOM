@@ -104,7 +104,3 @@ if(failedTests !== '') {
 else {
   testResultsElement.innerText += '0.';
 }
-
-let mytests1Element = document.getElementById('mytests1');
-mytests1Element.innerText = tests.toString();
-
