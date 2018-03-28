@@ -1,5 +1,7 @@
 This is my solution for the <a href="https://learn.javascript.ru/task/sum-many-brackets" target="_blank">Сумма произвольного количества скобок</a> task:
 
+<a href="http://example.com/" target="_blank">Hello, world!</a>
+
 <p>Напишите функцию <code>sum</code>, которая будет работать так:</p>
 
 sum(1)(2) == 3; // 1 + 2
