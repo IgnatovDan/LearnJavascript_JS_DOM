@@ -17,7 +17,7 @@ function MyParseStringToInt(str) {
   }*/
 }
 
-[
+let tests = [
   () => Number.isNaN(MyParseStringToInt(null)),
   () => Number.isNaN(MyParseStringToInt(undefined)),
   () => Number.isNaN(MyParseStringToInt('')),
@@ -48,8 +48,22 @@ function MyParseStringToInt(str) {
   () => Number.isNaN(MyParseStringToInt('1 21')),
   () => Number.isNaN(MyParseStringToInt('0x10')),
   () => true
-].forEach((entry) => { if(!entry()) console.log('Failure: ' + entry);});
+];
 
+let testResultsElement = document.getElementById('testresults1');
+testResultsElement.innerText = 'Starting tests...'
+let failedTests = '';
+tests.forEach((entry) => { 
+  if(!entry()) {
+    console.log('Failure: ' + entry);
+    failedTests += '\n\n' + entry;
+  }
+});
+testResultsElement.innerText += '\n ' + tests.length + ' tests are finished';
+if(failedTests !== '') {
+  testResultsElement.innerText += '\n Failed tests:\n' + failedTests;
+}
+  
 let values = [];
 
 while(true) {
