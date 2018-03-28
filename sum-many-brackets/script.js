@@ -36,20 +36,10 @@ tests.forEach((entry) => {
     failedTests += '\n\n' + entry;
   }
 });
-testResultsElement.innerText += '\n ' + tests.length + ' tests are finished';
+testResultsElement.innerText += '\n ' + tests.length + ' tests are finished.\n Failed tests: ';
 if(failedTests !== '') {
-  testResultsElement.innerText += '\n Failed tests:\n' + failedTests;
+  testResultsElement.innerText += '\n' + failedTests;
 }
-  
-let values = [];
-
-while(true) {
-  let userNumber = MyParseStringToInt(prompt());
-  if(Number.isNaN(userNumber)) {
-    break;
-  }
-  values.push(userNumber);
+else {
+  testResultsElement.innerText += '0.';
 }
-
-let summary = values.reduce((entry, result) => entry + result, 0);
-alert(summary);
