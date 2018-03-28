@@ -1,4 +1,4 @@
-This is my solution for the 'Сумма произвольного количества скобок' task (https://learn.javascript.ru/task/sum-many-brackets):
+This is my solution for the <a href="https://learn.javascript.ru/task/sum-many-brackets" target="_blank">Сумма произвольного количества скобок</a> task:
 
 <p>Напишите функцию <code>sum</code>, которая будет работать так:</p>
 
