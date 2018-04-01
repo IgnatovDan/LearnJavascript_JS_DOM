@@ -58,19 +58,15 @@
   
   <script>
     var table = document.body.children[0];
-    let redColIndex = 0;
-    
+
     //todo: array.forEach() vs for???
 
     for(let rowIndex = 0; rowIndex < table.rows.length; rowIndex++) {
-      table.rows[rowIndex].cells[redColIndex].style.backgroundColor = 'blue';
-      redColIndex++;
+      table.rows[rowIndex].cells[rowIndex].style.backgroundColor = 'blue';
     }
 
-    redColIndex = 0;
-    [].forEach.call(table.rows, (row) => {
-      row.cells[redColIndex].childNodes[0].appendData('+');
-      redColIndex++;
+    [].forEach.call(table.rows, (row, index) => {
+      row.cells[index].childNodes[0].appendData('+');
     });
   </script>
 </body>
