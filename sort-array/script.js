@@ -3,6 +3,9 @@
 //Implement ANY sorting algorithm
 
 function mySort(targetArray) {
+    // не скупитесь на пробелы между словами и новые строки между блоками
+    // улучшает читабельность
+  
   if(!Array.isArray(targetArray)) {
     throw TypeError('The passed value is not an array.');
   }
@@ -13,6 +16,19 @@ function mySort(targetArray) {
   while(shuffle) {
     shuffle = false;
     let compared = false;
+    // эту же конструкцию можно переписать на switch case default
+    // не жалейте переменных
+    
+    //  const current = targetArray[i];
+    //  const next = targetArray[i + 1];
+    
+    // и это все таки не shuffle, это swap
+    
+    // можно сделать отдельную функцию компаратор
+    // которая будет принимать на вход два значения
+    // и возвращать то что сейчас устанавливается в compared
+    // а в теле этой функции только лишь свапать
+    
     for(let i = 0; i < targetArray.length - 1; i++) {
       if(Number.isNaN(targetArray[i]) || Number.isNaN(targetArray[i + 1])) {
         compared = true;
