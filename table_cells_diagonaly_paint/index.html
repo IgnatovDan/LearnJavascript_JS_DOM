@@ -59,8 +59,7 @@
     //todo: array.some() vs for???
 
     for(let rowIndex = 0; rowIndex < table.rows.length; rowIndex++) {
-      const row = table.rows[rowIndex];
-      row.cells[redColIndex].style.backgroundColor = 'blue';
+      table.rows[rowIndex].cells[redColIndex].style.backgroundColor = 'blue';
       redColIndex++;
     }
 
