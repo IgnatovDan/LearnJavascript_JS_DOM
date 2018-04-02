@@ -105,7 +105,8 @@ let tests = [
 let myscript1Element = myscript1;
 myscript1Element.innerText = mySort.toString();
 
-let testResultsElement = document.getElementById('testresults1');
+//let testResultsElement = document.getElementById('testresults1');
+let testResultsElement = testresults1;
 testResultsElement.innerText = 'Starting tests...';
 let failedTests = '';
 tests.forEach((entry) => { 
