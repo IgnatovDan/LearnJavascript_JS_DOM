@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://learn.javascript.ru/test/libs.js"></script>
+  <script src="test.js"></script>
+</head>
+<body>
+
+  <script>
+    function makeArmy() {
+      var shooters = [];
+      for (var i = 0; i < 10; i++) {
+        let item = {
+          val : i,
+          func1() {
+            return this.val;
+          }
+        };
+        shooters.push(() => alert(item.func1()));
+      }    
+
+      return shooters;
+    }
+
+  </script>
+
+</body>
+</html>
