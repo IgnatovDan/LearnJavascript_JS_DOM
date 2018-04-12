@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    .hour {
+      color: red
+    }
+
+    .min {
+      color: green
+    }
+
+    .sec {
+      color: blue
+    }
+  </style>
+</head>
+
+<body>
+  
+  <h3>"Часики" как объект</h3>
+  <p>
+    Реализуйте часики как один объек со следующими методами:
+  </p>
+
+<div id="clock">
+  <div>
+    <span class="hour">hh</span>:<span class="min">mm</span>:<span class="sec">ss</span>
+  </div>
+  <input id="stopClock" type="button" value="Stop">
+  <input id="startClock" type="button" value="Start">
+</div>
+
+  <script>
+    'use strict';
+    
+    const clockDiv = document.querySelector('#clock');
+    const stopBtn = document.querySelector("#stopClock");
+    const startBtn = document.querySelector("#startClock");
+    
+    const hour = clockDiv.querySelector('.hour');
+    const min = clockDiv.querySelector('.min');
+    const sec = clockDiv.querySelector('.sec');
+    
+  
+    const clock = {
+      intervalID: null,
+      /**
+       * Запуск часиков 
+       */
+      start () {
+        if(this.intervalID === null) {
+          this.update();
+          this.intervalID = setInterval(() => this.update(), 1000);
+        }
+      },
+      
+      /**
+       * Остановка часиков 
+       */
+      stop () {
+        clearInterval(this.intervalID);
+        this.intervalID = null;
+      },
+      
+      update () {
+        const now = new Date();
+        hour.textContent = now.getHours();
+        min.textContent = now.getMinutes();
+        sec.textContent = now.getSeconds();
+        if(sec.textContent.length === 1) {
+          sec.textContent = '0' + sec.textContent;
+        }
+      }
+      
+      // ... при необходимости добавляйте методы и свойства
+    }
+    
+    stopBtn.onclick = function() {
+      clock.stop();
+    };
+    startBtn.onclick = function() {
+      clock.start();
+    };
+    clock.start();
+  </script>
+
+</body>
+
+</html>
