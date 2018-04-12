@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://learn.javascript.ru/test/libs.js"></script>
+  <script src="test.js"></script>
+</head>
+<body>
+  
+
+  <script>
+  //TODO: wrap to module, export one function.
+  
+    function makeCaching(targetFunction) {
+      return function() {
+        const param1 = arguments[0];
+        let targetFunctionCache = makeCaching.caches.get(targetFunction);
+        if(targetFunctionCache === undefined) {
+          targetFunctionCache = new Map();
+          makeCaching.caches.set(targetFunction, targetFunctionCache);
+        }
+        
+        let result = targetFunctionCache.get(param1);
+        if(result === undefined) {
+          result = targetFunction.apply(this, arguments);
+          targetFunctionCache.set(param1, result);
+        }
+        return result;
+      }
+    }
+    makeCaching.caches = new Map();
+    
+    makeCaching.clearCache = function(func) {
+      makeCaching.caches.delete(func);
+    }
+    /*makeCaching.clear = function() {
+      makeCaching.caches.clear();
+    }*/
+    
+  </script>
+
+</body>
+</html>
