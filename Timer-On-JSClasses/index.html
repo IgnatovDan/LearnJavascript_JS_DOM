@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    .hour {
+      color: red
+    }
+
+    .min {
+      color: green
+    }
+
+    .sec {
+      color: blue
+    }
+  </style>
+</head>
+
+<body>
+  
+  <h3>"Таймер" как 'class'</h3>
+
+  <input id="addTimer" type="button" value="Add Timer" style="margin:0px 0px 10px"/>
+  
+  <script>
+    'use strict';
+
+    class MyTimer {
+      constructor(targetElement) {
+        this._targetEl = targetElement;
+        if(targetElement === null || targetElement === undefined) {
+          throw ReferenceError('targetElement is null or undefined');
+        }
+        this._targetEl.innerHTML = '<div><span class="hour">00</span>:<span class="min">00</span>:<span class="sec">00</span>' +
+          '<input type="button" id="start" value="Start" style="margin:10px; width:100px"/>' +
+          '<input type="button" id="remove" value="Remove Timer" style="width:100px"/>' +
+          '</div>';
+
+        //TODO: how to declare private fields???
+        //TODO: how to declare 'const'-like fields???
+        this._startPauseEl = targetElement.querySelector('#start');
+        this._removeEl = targetElement.querySelector('#remove');
+        this._hourEl = targetElement.querySelector('.hour');
+        this._minEl = targetElement.querySelector('.min');
+        this._secEl = targetElement.querySelector('.sec');
+
+        this._intervalID = null;
+        this._startDateTime = null;
+        this._elapsedMilliseconds = 0;
+
+        this._startPauseEl.onclick = () => { this.toggleStartPause(); };
+        this._removeEl.onclick = () => { this.remove(); };
+      };
+    
+      toggleStartPause() {
+        if(this._intervalID === null) {
+          this._startPauseEl.value = 'Pause';
+          this._startDateTime = Date.now() - this._elapsedMilliseconds;
+          this.update();
+          this._intervalID = setInterval(() => this.update(), 1000);
+        }
+        else {
+          this.pause();
+        }
+      };
+
+      pause() {
+        this._startPauseEl.value = 'Continue';
+        this._elapsedMilliseconds = Date.now() - this._startDateTime;
+        clearInterval(this._intervalID); //cleared but one more queued call will be performed: https://stackoverflow.com/questions/47263656/will-clearinterval-stop-queued-interval-execution
+        this._intervalID = null;
+      };
+
+      remove() {
+        this.pause();
+        this._targetEl.remove();
+        this._targetEl = null;
+        this._startPauseEl = null;
+        this._removeEl = null;
+        this._hourEl = null;
+        this._minEl = null;
+        this._secEl = null;
+      };
+
+      update() {
+        this._elapsedMilliseconds = Date.now() - this._startDateTime;
+        const elapsed = new Date(this._elapsedMilliseconds);
+        this._hourEl.textContent = elapsed.getUTCHours().toString().padStart(2, '0');
+        this._minEl.textContent = elapsed.getMinutes().toString().padStart(2, '0');
+        this._secEl.textContent = elapsed.getSeconds().toString().padStart(2, '0');
+      };
+    };
+    
+    document.querySelector("#addTimer").onclick = () => {
+      const timerElement = document.createElement('div');
+      document.body.appendChild(timerElement);
+      new MyTimer(timerElement).toggleStartPause();
+    };
+
+    const timerElement = document.createElement('div');
+    document.body.appendChild(timerElement);
+    new MyTimer(timerElement).toggleStartPause();
+  </script>
+
+</body>
+
+</html>
