@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    .hour {
+      color: red
+    }
+
+    .min {
+      color: green
+    }
+
+    .sec {
+      color: blue
+    }
+  </style>
+</head>
+
+<body>
+  
+  <h3>"Таймер" как 'function()'</h3>
+
+  <input id="addTimer" type="button" value="Add Timer" style="margin:0px 0px 10px"/>
+
+  <script>
+    'use strict';
+
+    const createTimer = function(targetElement) {
+      const targetEl = targetElement;
+      let intervalID = null;
+      let startDateTime = null;
+      let elapsedMilliseconds = 0;
+
+      targetElement.innerHTML = '<div><span class="hour">00</span>:<span class="min">00</span>:<span class="sec">00</span>' +
+        '<input type="button" id="start" value="Start" style="margin:10px; width:100px"/>' +
+        '<input type="button" id="remove" value="Remove Timer" style="width:100px"/>' +
+        '</div>';
+
+      const startPauseEl = targetElement.querySelector('#start');
+      const removeEl = targetElement.querySelector('#remove');
+      const hourEl = targetElement.querySelector('.hour');
+      const minEl = targetElement.querySelector('.min');
+      const secEl = targetElement.querySelector('.sec');
+      
+      startPauseEl.onclick = () => { toggleStartPause(); };
+      removeEl.onclick = () => { remove(); };
+      
+      function toggleStartPause() {
+        if(intervalID === null) {
+          startPauseEl.value = 'Pause';
+          startDateTime = Date.now() - elapsedMilliseconds;
+          update();
+          intervalID = setInterval(() => update(), 1000);
+        }
+        else {
+          pause();
+        }
+      };
+
+      function pause() {
+        startPauseEl.value = 'Continue';
+        elapsedMilliseconds = Date.now() - startDateTime;
+        clearInterval(intervalID);  //cleared but one more queued call will be performed: https://stackoverflow.com/questions/47263656/will-clearinterval-stop-queued-interval-execution
+        intervalID = null;
+      };
+
+      function remove() {
+        pause();
+        targetElement.remove();
+      };
+
+      function update() {
+        elapsedMilliseconds = Date.now() - startDateTime;
+        const elapsed = new Date(elapsedMilliseconds);
+        hourEl.textContent = elapsed.getUTCHours().toString().padStart(2, '0');
+        minEl.textContent = elapsed.getMinutes().toString().padStart(2, '0');
+        secEl.textContent = elapsed.getSeconds().toString().padStart(2, '0');
+      };
+      
+      return { 
+        toggleStartPause,
+        remove
+      };
+    };
+    
+    document.querySelector("#addTimer").onclick = () => {
+      const timerElement = document.createElement('div');
+      document.body.appendChild(timerElement);
+      createTimer(timerElement).toggleStartPause();
+    };
+
+    const timerElement = document.createElement('div');
+    document.body.appendChild(timerElement);
+    createTimer(timerElement).toggleStartPause();
+  </script>
+
+</body>
+
+</html>
