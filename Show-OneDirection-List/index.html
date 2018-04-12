@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="lib/style.css">
+    <script src="lib/script.js"></script>
+  </head>
+
+  <body>
+    <div id="printList_for">printList_for</div>
+    <div id="printList_recursion">printList_recursion</div>
+    <div id="printList_for_reverese">printList_for_reverese</div>
+    <div id="printList_recursion_reverse">printList_recursion_reverse</div>
+    
+    <script>
+      let list = {
+        value: 1,
+        next: {
+          value: 2,
+          next: {
+            value: 3,
+            next: {
+              value: 4,
+              next: null
+            }
+          }
+        }
+      };
+
+      let printList_for = function(listHead) {
+          let result = '';
+          let current = listHead;
+          while(current) {
+              result += current.value;
+              current = current.next;
+              if(current) {
+                  result += ', ';
+              }
+          }
+          return result;
+      }
+      let printList_for_reverese = function(listHead) {
+          debugger;
+          let items = new Array();
+          let current = listHead;
+          while(current) {
+              items.push(current.value);
+              current = current.next;
+          }
+          items.reverse();
+          return items.reduce(
+              (accumulator, item) => { 
+                  return accumulator ? (accumulator + ', ' + item) : item; },
+              false);
+          }
+
+      let printList_recursion = function printList_recursion(listHead) {
+          let result = listHead.value;
+          if(listHead.next != null) {
+              result += ', ' + printList_recursion(listHead.next);
+          }
+          return result;
+      }
+      let printList_recursion_reverse = function printList_recursion(listHead) {
+          debugger;
+          let result = listHead.value.toString();
+          if(listHead.next != null) {
+              result = printList_recursion_reverse(listHead.next) + ', ' + result;
+          }
+          return result;
+      }
+
+      let printList_for_El = document.getElementById('printList_for');
+      printList_for_El.textContent = printList_for(list);
+
+      let printList_recursion_El = document.getElementById('printList_recursion');
+      printList_recursion_El.textContent = printList_recursion(list);
+
+      let printList_for_reverese_El = document.getElementById('printList_for_reverese');
+      printList_for_reverese_El.textContent = printList_for_reverese(list);
+
+      let printList_recursion_reverse_El = document.getElementById('printList_recursion_reverse');
+      printList_recursion_reverse_El.textContent = printList_recursion_reverse(list);
+
+    </script>
+  </body>
+</html>
