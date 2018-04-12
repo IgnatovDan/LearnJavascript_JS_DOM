@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <div>
+    Кнопка:
+    <!-- создайте элемент и расположите его тут -->
+  </div>
+
+  <script>
+    // .. ваш код
+    debugger;
+    const button = document.createElement('a');
+    button.className = 'button';
+    button.appendChild(document.createTextNode('OK'));
+    button.href = '/';
+
+    button.style.MozBorderRadius = button.style.WebkitBorderRadius = button.style.borderRadius = '8px';
+    button.style.border = '2px groove green';
+    button.style.display = 'block';
+    button.style.height = '30px';
+    button.style.lineHeight = '30px';
+    button.style.width = '100px';
+    
+    button.style.textDecoration = 'none';
+    button.style.textAlign = 'center';
+    button.style.color = 'red';
+    button.style.fontWeight = 'bold';
+
+    document.getElementsByTagName('div')[0].appendChild(button);
+  </script>
+
+
+</body>
+
+</html>
