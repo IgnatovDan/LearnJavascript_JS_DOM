@@ -7,21 +7,24 @@
     .MyTimer .hour {
       color: red
     }
-    .MyTimer .min_UI_1 {
+    .MyTimer .minutes {
       color: green
     }
-    .MyTimer .sec_UI_1 {
+    .MyTimer .minutes::before {
+      content: ":"
+    }
+    .MyTimer .seconds {
       color: blue
     }
-    .MyTimer .startPauseBtn_UI_1 {
+    .MyTimer .seconds::before {
+      content: ":"
+    }
+    .MyTimer .startPauseBtn {
       margin: 10px;
       width: 100px
     }
-    .MyTimer .resetBtn_UI_1 {
+    .MyTimer .resetBtn {
       width: 100px
-    }
-    .MyTimer .semicolon-before::before {
-      content: ":"
     }
   </style>
 </head>
@@ -39,204 +42,6 @@
       constructor() {
         this.MyTimer_UI_Class = MyTimer_UI_v1;
       }
-      _render() {
-        if(!this._element) {
-          this._UI = new this.MyTimer_UI_Class();
-
-          this._element = document.createElement('div'); //span? pre? MyTimerTag? what tag name pass here???
-          this._element.classList.add('MyTimer');
-          this._element.appendChild(this._UI.getElement());
-
-          this._core = new MyTimer_Core(this._UI.getElement());
-        }
-      };
-      getElement() {
-        this._render();
-        return this._UI.getElement();
-      }
-      toggleStartPause() {
-        this._render();
-        this._core.toggleStartPause();
-      }
-      destroy() {
-        this._core.destroy();
-        this._core = null;
-        this._UI = null;
-        this._element = null;
-      }
-    }
-
-    class MyTimer_UI_v1 {
-      render() {
-        this._element = document.createElement('div');
-        this._element.classList.add('MyTimer');
-
-        this._element.innerHTML = 
-          '<span class="hour_UI_1 hour_Core">00</span>' + ':' + '<span class="min_UI_1 min_Core">00</span>' + ':' + '<span class="sec_UI_1 sec_Core">00</span>' +
-          '<input type="button" value="Start" class="startPauseBtn_UI_1 startPause_Core"/>' + /*TODO: change Button ???*/
-          '<input type="button" value="Reset Timer" class="resetBtn_UI_1 reset_Core"/>'  /*TODO: change Button ???*/;
-      };
-      getElement() {
-        if(!this._element) {
-          this.render();
-        }
-        return this._element;
-      }
-    }
-
-    class MyTimer_UI_v2 {
-      render() {
-        this._element = document.createElement('div');
-        this._element.classList.add('MyTimer');
-
-        this._element.innerHTML = 
-          '<fieldset><legend>timer</legend>' +
-          '<span class="hour_UI_1 hour_Core">00</span>' + ':' + '<span class="min_UI_1 min_Core">00</span>' + ':' + '<span class="sec_UI_1 sec_Core">00</span>' +
-          '<input type="button" value="Start" class="startPauseBtn_UI_1 startPause_Core"/>' /*TODO: change Button ???*/ +
-          '<input type="button" value="Reset Timer" class="resetBtn_UI_1 reset_Core"/>'  /*TODO: change Button ???*/ + 
-          '</fieldset>';
-      };
-      getElement() {
-        if(!this._element) {
-          this.render();
-        }
-        return this._element;
-      }
-    }
-
-    class MyTimer_UI_v3 {
-      render() {
-        this._element = document.createElement('div');
-        this._element.classList.add('MyTimer');
-
-        this._element.innerHTML = 
-          '<fieldset><legend>timer</legend>' +
-          '<pre class="hour_UI_1 hour_Core">00</pre><pre class="min_UI_1 semicolon-before min_Core">00</pre><pre class="sec_UI_1 semicolon-before sec_Core">00</pre>' +
-          '<input type="button" value="Start" class="startPauseBtn_UI_1 startPause_Core"/>' /*TODO: change Button ???*/ +
-          '<input type="button" value="Reset Timer" class="resetBtn_UI_1 reset_Core"/>'  /*TODO: change Button ???*/ + 
-          '</fieldset>';
-      };
-      getElement() {
-        if(!this._element) {
-          this.render();
-        }
-        return this._element;
-      }
-    }
-
-    class MyTimer_UI_v4 {
-      render() {
-        this._element = document.createElement('div');
-        this._element.classList.add('MyTimer');
-
-        this._element.innerHTML = 
-          '<ul>' +
-          '<li class="hour_UI_1 hour_Core" style="display: inline">00</li>' +
-          '<li class="min_UI_1 min_Core semicolon-before" style="display: inline">00</li>' + 
-          '<li class="sec_UI_1 sec_Core semicolon-before" style="display: inline">00</li>' +
-          '<ul>' +
-          '<button class="startPauseBtn_UI_1 startPause_Core" style="display: inline">Start</button>' /*TODO: change Button ???*/ +
-          '<button class="resetBtn_UI_1 reset_Core">Reset Timer</button>'  /*TODO: change Button ???*/ + 
-          '</table>';
-      };
-      getElement() {
-        if(!this._element) {
-          this.render();
-        }
-        return this._element;
-      }
-    }
-
-    class MyTimer_UI_v5 {
-      render() {
-        this._element = document.createElement('div');
-        this._element.classList.add('MyTimer');
-
-        this._element.innerHTML = 
-          '<span class="hour_UI_1 hour_Core">00</span><span class="min_UI_1 semicolon-before min_Core">00</span><span class="sec_UI_1 semicolon-before sec_Core">00</span>' +
-          '<button class="startPauseBtn_UI_1 startPause_Core" style="display: inline">Start</button>' +
-          '<button class="resetBtn_UI_1 reset_Core">Reset Timer</button>' + 
-          '</table>';
-      };
-      getElement() {
-        if(!this._element) {
-          this.render();
-        }
-        return this._element;
-      }
-    }
-
-    class MyTimer_Core {
-      constructor(onTimerValueChanged) {
-        this.onTimerValueChanged = onTimerValueChanged;
-        this._intervalID = null;
-        this._startDateTime = null;
-        this._elapsedMilliseconds = 0;
-      }
-      _raiseTimerValueChanged() {
-        if(!onTimerValueChanged) { //can be called after 'destroy' from setInterval ?
-          return;
-        }
-        if(this._startDateTime !== null) {
-          const elapsed = new Date(Date.now() - this._startDateTime);
-        }
-        else {
-          const elapsed = new Date(0);
-        }
-        onTimerValueChanged({hours: elapsed.getUTCHours(), minutes: elapsed.getMinutes(), seconds: elapsed.getSeconds()});
-      }
-      start() {
-        if(this._intervalID === null) {
-          /*this._hourEl = this._rootEl.querySelector('.hour_Core');
-          this._minEl = this._rootEl.querySelector('.min_Core');
-          this._secEl = this._rootEl.querySelector('.sec_Core');
-
-          this._startEl.classList.add('hideStart');
-          this._pauseEl.classList.add('showPause');
-          this._startDateTime = Date.now() - this._elapsedMilliseconds;
-          this.update();*/
-          this._startDateTime = Date.now() - this._elapsedMilliseconds;
-          raiseTimerValueChanged();
-          //this._intervalID = setInterval(() => this.update(), 1000);
-          this._intervalID = setInterval(() => this._raiseTimerValueChanged(), 1000);
-        }
-      }
-      pause() {
-        if(this._intervalID) {
-          /*this._startEl.classList.add('showStart');
-          this._pauseEl.classList.add('hidePause');*/
-          this._elapsedMilliseconds = Date.now() - this._startDateTime;
-          clearInterval(this._intervalID); //cleared but one more queued call will be performed: https://stackoverflow.com/questions/47263656/will-clearinterval-stop-queued-interval-execution
-          this._intervalID = null;
-        }
-      }
-      destroy() {
-        this.onTimerValueChanged = null;
-        pause();
-        /*this._intervalID = null;
-        this._rootEl = null;
-        this._startEl = null;
-        this._pauseEl = null;
-        this._removeEl = null;
-        this._hourEl = null;
-        this._minEl = null;
-        this._secEl = null;*/
-      }
-      /*update() {
-        if(this._intervalID) { //avoid errors if called after destroy (f.i. through a setTimeout/setInterval methods)
-          this._elapsedMilliseconds = Date.now() - this._startDateTime;
-          const elapsed = new Date(this._elapsedMilliseconds);
-          this._hourEl.textContent = elapsed.getUTCHours().toString().padStart(2, '0');
-          this._minEl.textContent = elapsed.getMinutes().toString().padStart(2, '0');
-          this._secEl.textContent = elapsed.getSeconds().toString().padStart(2, '0');
-        }
-      }*/
-    };
-
-    class MyTimer2 {
-      constructor() {
-        this.MyTimer_UI_Class = MyTimer2_UI_v1;
-      }
       
       _render() {
         if(!this._UI) {
@@ -245,7 +50,7 @@
             onPause: () => this._core.pause(),
             onReset: () => this._core.reset()
           });
-          this._core = new MyTimer2_Core(state => this._UI.setState(state));
+          this._core = new MyTimer_Core(state => this._UI.setState(state));
         }
       }
 
@@ -258,16 +63,9 @@
         this._render();
         this._core.start();
       }
-
-      /*todo:
-      destroy() {
-        this._core.destroy();
-        this._core = null;
-        this._UI = null;
-      }*/
     }
 
-    class MyTimer2_UI_v1 {
+    class MyTimer_UI_v1 {
       constructor({onStart = null, onPause = null, onReset = null}) {
         this._onStart = onStart;
         this._onPause = onPause;
@@ -279,12 +77,12 @@
         this._element.classList.add('MyTimer');
 
         this._element.innerHTML = 
-          '<span id="hours" class="hour_UI_1">00</span>' + 
-          '<span id="minutes" class="min_UI_1 semicolon-before">00</span>' + 
-          '<span id="seconds" class="sec_UI_1 semicolon-before">00</span>' +
-          '<button id="startBtn" style="display:none">Start</button>' +
-          '<button id="pauseBtn">Pause</button>' +
-          '<button id="resetBtn">Reset Timer</button>';
+          '<span id="hours" class="hours">00</span>' + 
+          '<span id="minutes" class="minutes">00</span>' + 
+          '<span id="seconds" class="seconds">00</span>' +
+          '<button id="startBtn" class="startPauseBtn" style="display:none">Start</button>' +
+          '<button id="pauseBtn" class="startPauseBtn">Pause</button>' +
+          '<button id="resetBtn" class="resetBtn">Reset Timer</button>';
 
         if(this._onStart) {
           this._element.querySelector('#startBtn').onclick = () => {this._onStart(); };
@@ -296,7 +94,7 @@
           this._element.querySelector('#resetBtn').onclick = () => this._onReset();
         }
         
-        this.setState(); //TODO: set the state immediately if it was already passed???
+        this.setState();
       }
 
       getElement() {
@@ -308,9 +106,9 @@
 
       setState({hours = 0, minutes = 0, seconds = 0, started = false} = {}) {
         if(!this._element) {
-          //TODO: store the passed state before the first render???
           return;
         }
+
         const _hoursEl = this._element.querySelector('#hours');
         if(_hoursEl) {
           _hoursEl.textContent = hours.toString().padStart(2, '0');
@@ -339,16 +137,9 @@
           }
         }
       }
-
-      /* todo
-      destroy() {
-        this._onStart = null;
-        this._onPause = null;
-        this._onReset = null;
-      }*/
     }
 
-    class MyTimer2_Core {
+    class MyTimer_Core {
       constructor(onStateChanged) {
         this.onStateChanged = onStateChanged;
         this._intervalID = null;
@@ -356,8 +147,7 @@
         this._lastUpdateElapsedMillisecondsDateTime = null;
       }
       _raiseStateChanged() {
-        //todo: after destroy?
-        if(!this.onStateChanged) { //can be called after 'destroy' from setInterval ?
+        if(!this.onStateChanged) {
           return;
         }
         let elapsed = new Date(this._elapsedMilliseconds);
@@ -391,7 +181,6 @@
       }
 
       start() {
-        //todo: after destroy?
         if(this._intervalID === null) {
           this._intervalID = setInterval(() => this._setIntervalHandler(), 1000);
           this._updateElapsedMilliseconds();
@@ -400,7 +189,6 @@
       }
 
       pause() {
-        //todo: after destroy?
         if(this._intervalID) {
           this._updateElapsedMilliseconds();
           this._lastUpdateElapsedMillisecondsDateTime = null;
@@ -410,23 +198,14 @@
       }
 
       reset() {
-        //todo: after destroy?
-        this._clearInterval();
         this._elapsedMilliseconds = 0;
         this._lastUpdateElapsedMillisecondsDateTime = null;
         this._raiseStateChanged();
       }
-
-      /*todo
-      destroy() {
-        this.reset();
-        this._raiseStateChanged();
-        this.onTimerValueChanged = null;
-      }*/
     };
 
     function AddAndStartTimer() {
-      const myTimer = new MyTimer2();
+      const myTimer = new MyTimer();
       document.body.appendChild(myTimer.getElement());
       const removeTimerBtn = document.createElement('button');
       removeTimerBtn.classList.add('removeTimerBtn');
