@@ -40,7 +40,7 @@
 
     class MyTimer {
       constructor() {
-        this.MyTimer_UI_Class = MyTimer_UI_v1;
+        this.MyTimer_UI_Class = MyTimer_UI_v9;
       }
       
       _render() {
@@ -65,7 +65,7 @@
       }
     }
 
-    class MyTimer_UI_v1 {
+    class MyTimer_UI_v9 {
       constructor({onStart = null, onPause = null, onReset = null}) {
         this._onStart = onStart;
         this._onPause = onPause;
@@ -85,10 +85,10 @@
           '<button id="resetBtn" class="resetBtn">Reset Timer</button>';
 
         if(this._onStart) {
-          this._element.querySelector('#startBtn').onclick = () => {this._onStart(); };
+          this._element.querySelector('#startBtn').onclick = () => this._onStart();
         }
         if(this._onPause) {
-          this._element.querySelector('#pauseBtn').onclick = () => {this._onPause(); };
+          this._element.querySelector('#pauseBtn').onclick = () => this._onPause();
         }
         if(this._onReset) {
           this._element.querySelector('#resetBtn').onclick = () => this._onReset();
