@@ -35,29 +35,48 @@
                             <div class="result"><input id="result" type="number" readonly="true" /></div>
                         </div>`;
 
-                    this._numberEditor = this._element.querySelector("#number");
+                    this._numberEl = this._element.querySelector("#number");
+                    this._numberEl.oninput = () => this._numberEl_Input();
                     this._element.querySelector("#btnPlus").onclick = () => { 
-                        this._core.addExpression(this._numberEditor.value + "+");
-                        this._numberEditor.value = "";
+                        this._core.addExpression(this._numberEl.value + "+");
+                        this._numberEl.value = "";
+                    };
+                    this._element.querySelector("#btnMinus").onclick = () => { 
+                        this._core.addExpression(this._numberEl.value + "-");
+                        this._numberEl.value = "";
                     };
                     this._element.querySelector("#btnMultiple").onclick = () => { 
-                        this._core.addExpression(this._numberEditor.value + "*");
-                        this._numberEditor.value = "";
+                        this._core.addExpression(this._numberEl.value + "*");
+                        this._numberEl.value = "";
                     };
                     this._element.querySelector("#btnDivide").onclick = () => { 
-                        this._core.addExpression(this._numberEditor.value + "/");
-                        this._numberEditor.value = "";
+                        this._core.addExpression(this._numberEl.value + "/");
+                        this._numberEl.value = "";
                     };
                     this._element.querySelector("#btnCalculate").onclick = () => { 
-                        this._core.addExpression(this._numberEditor.value);
-                        this._numberEditor.value = "";
+                        this._core.addExpression(this._numberEl.value);
+                        this._numberEl.value = "";
                         this._core.calculate();
                     };
 
-                    this._element.querySelector("#btnBackspace").onclick = () => { this._core.backspace()};
+                    this._element.querySelector("#btnBackspace").onclick = () => {
+                        if(this._numberEl.value !== "") {
+                            this._numberEl.value = this._numberEl.value.slice(0, this._numberEl.value.length - 1);
+                            this._numberEl_Input();
+                        }
+                        else {
+                            this._core.backspace();
+                        }
+                    };
 
                     this._element.querySelector("#btnClear").onclick = () => { this._core.clear()};
                     this._core = new Calculator_Core(state => { this._core_StateChanged(state); });
+                }
+
+                _numberEl_Input() {
+                    this._core_StateChanged({
+                        expression: this._core.getExpression() + this._numberEl.value,
+                    });
                 }
 
                 _core_StateChanged({expression = "", result= "", resultError = ""} = {}) {
@@ -106,6 +125,10 @@
                         this._expression += newExpression;
                         this._raiseStateChanged();
                     }
+                }
+
+                getExpression() {
+                    return this._expression;
                 }
 
                 clear() {
