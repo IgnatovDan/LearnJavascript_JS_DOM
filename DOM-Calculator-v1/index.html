@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            .MyCalculator .number::before {
+                content: "type a number:"
+            }
+            .MyCalculator .operations::before {
+                content: "click an operation:"
+            }
+            .MyCalculator .currentExpression::before {
+                content: "current expression:"
+            }
+            .MyCalculator .resultError::before {
+                content: "error:"
+            }
+            .MyCalculator .result::before {
+                content: "result:"
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+
+            class Calculator {
+
+                constructor() {
+                    this._element = document.createElement('div');
+                    this._element.innerHTML = 
+                        `<div id="MyCalculator1" class="MyCalculator">
+                            <div class="number"><input id="number" type="number" max="100"/></div>
+                            <div class="operations"><button id="btnPlus">+</button><button id="btnMinus">-</button><button  id="btnMultiple">*</button><button id="btnDivide">/</button><button id="btnCalculate">Calculate</button></div>
+                            <div class="currentExpression"><textarea id="expression" rows="3" cols="100" readonly="true"></textarea><button id="btnBackspace">Backspace</button><button id="btnClear">Clear</button></div>
+                            <div class="resultError"><textarea id="resultError" rows="3" cols="100" readonly="true"></textarea></div>
+                            <div class="result"><input id="result" type="number" readonly="true" /></div>
+                        </div>`;
+
+                    this._numberEditor = this._element.querySelector("#number");
+                    this._element.querySelector("#btnPlus").onclick = () => { 
+                        this._core.addExpression(this._numberEditor.value + "+");
+                        this._numberEditor.value = "";
+                    };
+                    this._element.querySelector("#btnMultiple").onclick = () => { 
+                        this._core.addExpression(this._numberEditor.value + "*");
+                        this._numberEditor.value = "";
+                    };
+                    this._element.querySelector("#btnDivide").onclick = () => { 
+                        this._core.addExpression(this._numberEditor.value + "/");
+                        this._numberEditor.value = "";
+                    };
+                    this._element.querySelector("#btnCalculate").onclick = () => { 
+                        this._core.addExpression(this._numberEditor.value);
+                        this._numberEditor.value = "";
+                        this._core.calculate();
+                    };
+
+                    this._element.querySelector("#btnBackspace").onclick = () => { this._core.backspace()};
+
+                    this._element.querySelector("#btnClear").onclick = () => { this._core.clear()};
+                    this._core = new Calculator_Core(state => { this._core_StateChanged(state); });
+                }
+
+                _core_StateChanged({expression = "", result= "", resultError = ""} = {}) {
+                    this._element.querySelector("#expression").value = expression;
+                    const resultErrorEl = this._element.querySelector("#resultError");
+                    const resultErrorDiv = this._element.querySelector(".resultError");
+                    const resultEl = this._element.querySelector("#result");
+                    const resultDiv = this._element.querySelector(".result");
+                    resultErrorEl.value = "";
+                    resultEl.value = "";
+                    if(resultError !== "") {
+                        resultErrorDiv.style.display = '';
+                        resultDiv.style.display = 'none';
+                    }
+                    else {
+                        resultErrorDiv.style.display = 'none';
+                        resultDiv.style.display = '';
+                    }
+                    resultErrorEl.value = resultError;
+                    resultEl.value = result;
+                }
+
+                getElement() {
+                    return this._element;
+                }
+            }
+
+            class Calculator_Core {
+
+                constructor(onStateChanged) {
+                    this._onStateChanged = onStateChanged;
+                    this._expression = "";
+                    this._result = "";
+                    this._resultError = "";
+                    this._raiseStateChanged();
+                }
+
+                _raiseStateChanged() {
+                    if(this._onStateChanged) {
+                        this._onStateChanged({expression: this._expression, result: this._result, resultError: this._resultError});
+                    }
+                }
+
+                addExpression(newExpression) {
+                    if(newExpression && newExpression !== "") {
+                        this._expression += newExpression;
+                        this._raiseStateChanged();
+                    }
+                }
+
+                clear() {
+                    this._expression = "";
+                    this._result = "";
+                    this._resultError = "";
+                    this._raiseStateChanged();
+                }
+
+                backspace() {
+                    this._expression = this._expression.slice(0, this._expression.length - 1);
+                    this._raiseStateChanged();
+                }
+
+                calculate() {
+                    this._resultError = "";
+                    try {
+                        this._result = eval(this._expression);
+                    }
+                    catch(e) {
+                        this._resultError = e.toString();
+                    }
+                    this._raiseStateChanged();
+                }
+            }
+
+            //const calc = new Calculator(document.querySelector('#MyCalculator1')); - it's much easier to create/edit markup as markup than as a string!
+            const calc1 = new Calculator();
+            document.body.appendChild(calc1.getElement());
+        </script>
+    </body>
+</html>
