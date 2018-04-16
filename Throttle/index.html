@@ -1,0 +1,157 @@
+<!doctype html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="lib/style.css">
+    <script src="lib/script.js"></script>
+  </head>
+
+  <body>
+    <table>
+      <tr>
+        <td>
+          learn.javascript solution
+        </td>
+        <td>
+          my solution
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button onclick="clickMe_LearnJS()">myF(counter)</button>
+          <button onclick="clickMeThrottle_LearnJS()">throttle(myF, 3s)</button>
+          <div>
+          <textarea id="Text1_LearnJS" cols="30" rows="30"></textarea>
+          </div>
+        </td>
+        <td>
+          <button onclick="clickMe_My()">myF(counter)</button>
+          <button onclick="clickMeThrottle_My()">throttle(myF, 3s)</button>
+          <div>
+          <textarea id="Text1_My" cols="30" rows="30"></textarea>
+          </div>
+        </td>
+      </tr>
+    </table>
+    
+    <script>
+      // ****************************************************************
+      // Learn.Javascript solution
+      // ****************************************************************
+      
+      let counter_LearnJS = 0;
+
+      function f_LearnJS(a) {
+        console.log("f(a) - " + a);
+        let textarea = document.querySelector("#Text1_LearnJS");
+        textarea.value = textarea.value + "\r\nf(" + a + ")";
+        textarea.scrollTop = textarea.scrollHeight;
+      }
+
+      function clickMe_LearnJS() {
+        counter_LearnJS++;
+        f_LearnJS(counter_LearnJS);
+      }
+
+      const f_throttle_LearnJS = throttle_LearnJS(f_LearnJS, 3000);
+      function clickMeThrottle_LearnJS() {
+        counter_LearnJS++;
+        f_throttle_LearnJS(counter_LearnJS);
+      }
+
+      function throttle_LearnJS(func, ms) {
+
+        var isThrottled = false,
+          savedArgs,
+          savedThis;
+      
+        function wrapper() {
+      
+          if (isThrottled) { // (2)
+            savedArgs = arguments;
+            savedThis = this;
+            return;
+          }
+      
+          func.apply(this, arguments); // (1)
+      
+          isThrottled = true;
+      
+          setTimeout(function() {
+            isThrottled = false; // (3)
+            if (savedArgs) {
+              wrapper.apply(savedThis, savedArgs);
+              savedArgs = savedThis = null;
+            }
+          }, ms);
+        }
+      
+        return wrapper;
+      }
+    </script>
+    
+    <script>
+      // ****************************************************************
+      // My solution
+      // ****************************************************************
+
+      let counter_My = 0;
+
+      function f_My(a) {
+        //debugger;
+        console.log("f(a) - " + a);
+        let textarea = document.querySelector("#Text1_My");
+        textarea.value = textarea.value + "\r\nf(" + a + ")";
+        textarea.scrollTop = textarea.scrollHeight;
+      }
+
+      function clickMe_My() {
+        counter_My++;
+        f_My(counter_My);
+      }
+
+      const f_throttle_My = throttle_My(f_My, 3000);
+      function clickMeThrottle_My() {
+        counter_My++;
+        f_throttle_My(counter_My);
+      }
+
+      function throttle_My(func, delayTime) {
+        let lastCallDateTime = null;
+  
+        function tryCallTargetFunc(self, targetFunc, targetFuncArguments) {
+          console.log('> tryCallTargetFunc: ' + lastCallDateTime);
+          let canCallTargetFunc = true;
+          if(lastCallDateTime != null) {
+            let elapsedMilliseconds = performance.now() - lastCallDateTime;
+            console.log('  elapsedMilliseconds: ' + elapsedMilliseconds);
+            if(elapsedMilliseconds < delayTime) {
+              canCallTargetFunc = false;
+            }
+          }
+          if(canCallTargetFunc) {
+            func.apply(self, targetFuncArguments);
+          }
+          console.log('< tryCallTargetFunc: ' + canCallTargetFunc);
+          return canCallTargetFunc;
+        }
+        
+        return function() {
+          console.log('\r\n> wrapper: arguments[0] - '  + arguments[0] + '; lastCallDateTime - '+ lastCallDateTime);
+          if(!tryCallTargetFunc(this, func, arguments)) {
+            setTimeout(
+              () => {
+                console.log('\r\n> setTimeout: arguments[0] - ' + arguments[0]);
+                tryCallTargetFunc(null, func, arguments)
+                console.log('\r\n< setTimeout');
+              },
+              delayTime);
+            
+          }
+          lastCallDateTime = performance.now();
+          console.log('\r\n< wrapper: ' + lastCallDateTime);
+        }
+      }
+    </script>
+  </body>
+</html>
