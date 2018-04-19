@@ -18,9 +18,9 @@
   
   <script>
     'use strict';
-    let timer = new myTimerLib.timerClass();
+    let timer = new myTimerLib.timerClass({stateChangedEventInterval: 100});
 
-    function AddTimerWidget() {
+    function AddTimerWidget(timer) {
       const myTimerWidget = new myTimerWidgetLib.timerWidgetClass(timer);
       document.body.appendChild(myTimerWidget.getElement());
       const removeTimerBtn = document.createElement('button');
@@ -30,9 +30,9 @@
       //myTimer.start();
     }
 
-    document.querySelector("#addTimer").onclick = () => { AddTimerWidget(); };
+    document.querySelector("#addTimer").onclick = () => { AddTimerWidget(timer); };
 
-    AddTimerWidget();
+    AddTimerWidget(timer);
     
     timer.start();
   </script>

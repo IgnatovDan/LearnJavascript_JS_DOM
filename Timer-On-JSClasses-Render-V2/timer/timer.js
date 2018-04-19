@@ -1,16 +1,17 @@
 'use strict';
 let myTimerLib = (function () {
   class timer {
-    constructor() {
+    constructor({stateChangedEventInterval = 1000} = {}) {
       this._stateChangedEventListeners = new Array();
       this._intervalID = null;
       this._elapsedMilliseconds = 0;
       this._lastUpdateElapsedMillisecondsDateTime = null;
+      this._stateChangedEventInterval = stateChangedEventInterval;
     }
 
     start() {
       if(this._intervalID === null) {
-        this._intervalID = setInterval(() => this._setIntervalHandler(), 1000);
+        this._intervalID = setInterval(() => this._setIntervalHandler(), this.stateChangedEventInterval);
         this._updateElapsedMilliseconds();
         this._raiseStateChanged();
       }

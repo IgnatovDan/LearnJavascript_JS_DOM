@@ -13,10 +13,16 @@
 .timer__seconds::before {
     content: ":"
 }
+.timer__milliseconds::before {
+    content: ":"
+}
 .timer__startPauseBtn {
     margin: 10px;
     width: 100px
 }
 .timer__resetBtn {
     width: 100px
+}
+.timer__format {
+    border: none
 }
