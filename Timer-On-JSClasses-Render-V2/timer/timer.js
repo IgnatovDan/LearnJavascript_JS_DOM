@@ -28,16 +28,7 @@ let myTimerLib = (function () {
       this._stateChangedEventListeners.push(listener);
     }
     
-    removeStateChangedEventListener(listener) {
-      throw new Error('not implemented');
-      // TODO: this code will return the first occurence of some 'function'.
-      // but there will be alot of one and the same function with different 'this' and 'LexEnv' values.
-      // does it require special code?
-      const index = this._stateChangedEventListeners.indexOf(listener);
-      if(index != -1) {
-        this._stateChangedEventListeners.remove(listener);
-      }
-    }
+    //TODO removeStateChangedEventListener(listener) {
     
     reset() {
       this._elapsedMilliseconds = 0;
@@ -50,13 +41,6 @@ let myTimerLib = (function () {
         milliseconds: this._elapsedMilliseconds,
         started: (this._intervalID !== null)
       };
-      // let elapsed = new Date(this._elapsedMilliseconds);
-      // return {
-      //   hours: elapsed.getUTCHours(),
-      //   minutes: elapsed.getMinutes(),
-      //   seconds: elapsed.getSeconds(),
-      //   started: (this._intervalID !== null)
-      // }
     }
 
     _raiseStateChanged() {
