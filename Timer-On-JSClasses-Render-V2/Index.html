@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <script src="timer\timer.js"></script>
+
+  <link rel="stylesheet" href="timerWidget\timerWidget.css">
+  <script src="timerWidget\timerWidget.js"></script>
+</head>
+
+<body>
+  
+  <h3>"Таймер" как 'class'</h3>
+
+  <input id="addTimer" type="button" value="Add Timer" style="margin:0px 0px 10px"/>
+  
+  <script>
+    'use strict';
+    let timer = new myTimerLib.timerClass();
+
+    function AddTimerWidget() {
+      const myTimerWidget = new myTimerWidgetLib.timerWidgetClass(timer);
+      document.body.appendChild(myTimerWidget.getElement());
+      const removeTimerBtn = document.createElement('button');
+      removeTimerBtn.classList.add('removeTimerBtn');
+      removeTimerBtn.innerText = 'Remove timer';
+      removeTimerBtn.onclick = () => { myTimerWidget.getElement().remove() };
+      //myTimer.start();
+    }
+
+    document.querySelector("#addTimer").onclick = () => { AddTimerWidget(); };
+
+    AddTimerWidget();
+    
+    timer.start();
+  </script>
+
+</body>
+
+</html>

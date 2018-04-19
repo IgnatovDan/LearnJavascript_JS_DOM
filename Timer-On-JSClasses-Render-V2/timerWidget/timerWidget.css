@@ -1,0 +1,22 @@
+.timer__hours {
+    color: red
+}
+.timer__minutes {
+    color: green
+}
+.timer__minutes::before {
+    content: ":"
+}
+.timer__seconds {
+    color: blue
+}
+.timer__seconds::before {
+    content: ":"
+}
+.timer__startPauseBtn {
+    margin: 10px;
+    width: 100px
+}
+.timer__resetBtn {
+    width: 100px
+}
