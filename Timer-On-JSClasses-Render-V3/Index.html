@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <script src="Core\timer.js"></script>
+
+  <script src="UI\myTimer\myTimer_shared.js"></script>
+
+  <script src="UI\myTimer\__lbl-ss_sss\lbl-ss_sss.js"></script>
+  <script src="UI\myTimer\__lbl-HH_mm_ss\lbl-HH_mm_ss.js"></script>
+  <script src="UI\myTimer\__format-selector\format-selector.js"></script>
+
+  <script src="UI\myTimer\__btn-pause\btn-pause.js"></script>
+  <script src="UI\myTimer\__btn-reset\btn-reset.js"></script>
+  <script src="UI\myTimer\__btn-start\btn-start.js"></script>
+  
+  <link rel="stylesheet" href="UI\myTimer\myTimer.css">
+  <script src="UI\myTimer\myTimer.js"></script>
+</head>
+
+<body>
+  
+  <h3>"Таймер" как 'class'</h3>
+
+  <input class="mytimer-demo__add-timer-Control-button" type="button" value="Add Timer Control" style="margin:0px 0px 10px"/>
+  
+  <script>
+    'use strict';
+    let timer = new Timer({stateChangedEventInterval: 100});
+
+    function AddTimerControl(timer) {
+      const timerContainerEl = document.createElement('div');
+      document.body.appendChild(timerContainerEl);
+
+      const myTimer = new MyTimer(timer);
+      timerContainerEl.appendChild(myTimer.getElement());
+      
+      const removeTimerBtn = document.createElement('button');
+      removeTimerBtn.innerText = 'Remove timer control';
+      removeTimerBtn.onclick = () => { timerContainerEl.remove(); myTimer.dispose(); };
+
+      timerContainerEl.appendChild(removeTimerBtn);
+    }
+
+    document.querySelector(".mytimer-demo__add-timer-Control-button").onclick = () => AddTimerControl(timer);
+
+    AddTimerControl(timer);
+    
+    timer.start();
+  </script>
+
+</body>
+
+</html>
