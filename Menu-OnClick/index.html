@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    .menu_hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <span class="menu_drop-down-onclick-target" style="cursor:pointer">
+    <span class="menu_drop-down-toggle-visibility-target">▶</span>
+    <span class="menu_drop-down-toggle-visibility-target menu_hidden">▼</span>
+    <span class="menu__caption">Сладости (нажми меня)!</span>
+  </span>
+  <ul class="menu_drop-down-toggle-visibility-target menu_hidden">
+    <li>Торт</li>
+    <li>Пончик</li>
+    <li>Пирожное</li>
+  </ul>
+
+  <script>
+    //menu_hidden - модификатор для элементов моего блока menu
+    //menu_drop-down-onclick-target - метка для выбора элементов для обработки 'click' внутри моего блока menu
+    //menu_drop-down-toggle-visibility-target - метка для выбора элементов с переключением режима 'drop-down visible'/'drop-down hidden' внутри моего блока menu
+    
+    function toggleMenuDropDownVisibility() {
+      document.querySelectorAll('.menu_drop-down-toggle-visibility-target')
+        .forEach(item => item.classList.toggle('menu_hidden'));
+    }
+
+    document.querySelector('.menu_drop-down-onclick-target').addEventListener('click', toggleMenuDropDownVisibility);
+  </script>
+</body>
+
+</html>
