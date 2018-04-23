@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      height: 2000px;
+      /* подсказка должна работать независимо от прокрутки */
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
+  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
+
+  <button data-tooltip="подсказка длиннее, чем элемент">Короткая кнопка</button>
+  <button data-tooltip="HTML<br>подсказка">Ещё кнопка</button>
+
+  <p>Прокрутите страницу, чтобы ссылки были вверху и проверьте, правильно ли показываются подсказки.</p>
+
+
+  <script>
+    const tooltipShadowOffsetY = 4;
+    const tooltipMargin = 5;
+    function calcTooltipTop(tooltipHeight, targetBoundingClientRect) {
+        let result = window.scrollY 
+          + targetBoundingClientRect.top
+          - tooltipHeight - tooltipShadowOffsetY - tooltipMargin; //TODO: как посчитать высоту этого элемента до вставки в документ и отрисовки в браузере????
+
+        if(result < window.scrollY) {
+          result = window.scrollY 
+            + targetBoundingClientRect.top
+            + targetBoundingClientRect.height
+            + tooltipMargin;
+        }
+        return result; 
+    }
+    
+    let currentTooltip = null;
+    function documentClickListener(event) {
+      if(event.target.dataset.tooltip) {
+        if(currentTooltip !== null) {
+          currentTooltip.remove();
+          currentTooltip = null;
+        }
+        
+        const tooltip = document.createElement('div');
+        currentTooltip = tooltip;
+        tooltip.style.position = 'absolute';
+        tooltip.style.background = 'white';
+        tooltip.style.border = '1px solid black';
+        tooltip.style.borderRadius = '3px';
+        tooltip.style.padding = '10px';
+        tooltip.style.boxShadow = `4px ${tooltipShadowOffsetY}px 8px black`;
+
+        const targetBoundingClientRect = event.target.getBoundingClientRect();
+        tooltip.style.left = targetBoundingClientRect.left
+          + targetBoundingClientRect.width/2
+          + 'px';
+        
+        tooltip.innerHTML = event.target.dataset.tooltip;
+
+        document.body.appendChild(tooltip);
+
+        tooltip.style.top = calcTooltipTop(tooltip.getBoundingClientRect().height, targetBoundingClientRect) + 'px';
+
+        setTimeout(() => { tooltip.remove(); if(tooltip === currentTooltip) {currentTooltip = null;} }, 5000); 
+      }
+    } 
+    
+    document.addEventListener('click', documentClickListener);
+  </script>
+
+</body>
+
+</html>
