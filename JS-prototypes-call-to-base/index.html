@@ -2,47 +2,54 @@
 
 <html>
 <body>
-<script>
+  
+  <script>
 
-//*************** Animal **************
+    // про https://learn.javascript.ru/class-inheritance
+    //Почему в учебнике вызов конструктора и вызов метода базового "класса" 
+    //сделаны через явные буквы 'Animal', а не через свойства "иерархии наследования" __proto__ ?
+    
+    //*************** Animal **************
 
-function Animal(options = {}) {
-  this.name = options.name;
-  this.speed = options.speed;
-}
+    function Animal(options = {}) {
+      this.name = options.name;
+      this.speed = options.speed;
+    }
 
-Animal.prototype.run = function(speed) {
-  this.speed = speed;
-  alert( this.name + ' бежит, скорость ' + this.speed );
-};
+    Animal.prototype.run = function(speed) {
+      this.speed = speed;
+      alert( this.name + ' бежит, скорость ' + this.speed );
+    };
 
-//*************** Rabbit **************
+    //*************** Rabbit **************
 
-function Rabbit(options) {
-  //TODO:  *****************************
-  //Animal.call(this, options);
+    function Rabbit(options) {
+      //TODO:  *****************************
+      //Animal.call(this, options);  -- why this is shown at https://learn.javascript.ru/class-inheritance
 
-  this.__proto__.__proto__.constructor(options);
-}
+      this.__proto__.__proto__.constructor(options);
+    }
 
-Rabbit.prototype = Object.create(Animal.prototype);
-Rabbit.prototype.constructor = Rabbit;
+    Rabbit.prototype = Object.create(Animal.prototype);
+    Rabbit.prototype.constructor = Rabbit;
 
-Rabbit.prototype.jump = function() {
-  this.speed++;
-  alert( this.name + ' прыгает, скорость ' + this.speed );
-}
+    Rabbit.prototype.jump = function() {
+      this.speed++;
+      alert( this.name + ' прыгает, скорость ' + this.speed );
+    }
 
-Rabbit.prototype.run = function() {
-  //TODO:  *****************************
-  //Animal.prototype.run.apply(this, arguments);
-  this.__proto__.__proto__.run.apply(this, arguments);
-  this.jump();
-}
+    Rabbit.prototype.run = function() {
+      //TODO:  *****************************
+      //Animal.prototype.run.apply(this, arguments);  -- why this is shown at https://learn.javascript.ru/class-inheritance
 
-var r = new Rabbit({name : 'rab', speed: 0});
-r.run(1);
+      this.__proto__.__proto__.run.apply(this, arguments);
+      this.jump();
+    }
 
-</script>
+    var r = new Rabbit({name : 'rab', speed: 0});
+    r.run(1);
+
+  </script>
+  
 </body>
 </html>
