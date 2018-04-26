@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+
+<html>
+<body>
+<script>
+
+//*************** Animal **************
+
+function Animal(options = {}) {
+  this.name = options.name;
+  this.speed = options.speed;
+}
+
+Animal.prototype.run = function(speed) {
+  this.speed = speed;
+  alert( this.name + ' бежит, скорость ' + this.speed );
+};
+
+//*************** Rabbit **************
+
+function Rabbit(options) {
+  //TODO:  *****************************
+  //Animal.call(this, options);
+
+  this.__proto__.__proto__.constructor(options);
+}
+
+Rabbit.prototype = Object.create(Animal.prototype);
+Rabbit.prototype.constructor = Rabbit;
+
+Rabbit.prototype.jump = function() {
+  this.speed++;
+  alert( this.name + ' прыгает, скорость ' + this.speed );
+}
+
+Rabbit.prototype.run = function() {
+  //TODO:  *****************************
+  //Animal.prototype.run.apply(this, arguments);
+  this.__proto__.__proto__.run.apply(this, arguments);
+  this.jump();
+}
+
+var r = new Rabbit({name : 'rab', speed: 0});
+r.run(1);
+
+</script>
+</body>
+</html>
