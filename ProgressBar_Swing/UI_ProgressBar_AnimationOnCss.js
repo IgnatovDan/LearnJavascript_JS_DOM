@@ -9,6 +9,11 @@ function MySwingUIProgressBarAnimationOnCss({mySwingCore, targetDiv} = {}) {
       if(!valueDetails.swingDirection) {
         transitionDuration =  Math.round(oneSideSwingTimeMs * valueDetails.value);
       }
+      
+      //на неактивной закладке значения valueDetails.value и transitioned targetDiv.style.left не будут согласованы: 
+      //изменение transitioned значения targetDiv.style.left будет отставать от функции 'linear' на неактивной закладке
+      //и следующая анимация начнется от текущего transitioned значения targetDiv.style.left.
+      
       console.log('transitionDuration: '  + transitionDuration + '; oneSideSwingTimeMs: ' + oneSideSwingTimeMs + '; valueDetails.value: ' + valueDetails.value);
       targetDiv.style.transitionProperty = 'left';
       targetDiv.style.transitionDuration = transitionDuration + 'ms';
