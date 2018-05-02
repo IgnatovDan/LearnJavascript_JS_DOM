@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <script src="MySwing_Core.js"></script>
+    <script src="MySwing_UI_Percents_Label.js"></script>
+    <script src="MySwing_UI_TotalTime_Label.js"></script>
+    <script src="MySwing_UI_ProgressBar_AnimationOnTimer.js"></script>
+    <script src="MySwing_UI_ProgressBar_AnimationOnCss.js"></script>
+  </head>
+
+  <body>
+    <p>
+      Прогресс-бар должен заполниться за 3 секунд от 0 до 100 процентов,
+      а затем двигаться в обратном направлении
+    </p>
+    <p>
+      Счетчик времени .time должен обновляться в соответствии с прошедшим временем
+    </p>
+    
+    <div class="task">
+      <div class="status-panel">
+        <h4 class="time-label">0мс</h4>
+        <h4 class="percentValue-label">5%</h4>
+        <button type="button" class='start-button'>Start</button>
+        <button type="button" class='stop-button'>Stop</button>
+      </div>
+      
+      <div class="container container1">
+      	<div class="progress-bar progress-bar-div">
+      	</div>
+      </div>
+      <div class="container">
+      	<div class="progress-bar progress-bar-animated-div">
+      	</div>
+      </div>
+    </div>
+    
+    <script>
+      const mySwingCore = new MySwingCore();
+      
+      document.querySelector('.start-button').addEventListener('click', () => mySwingCore.start());
+      document.querySelector('.stop-button').addEventListener('click', () => mySwingCore.stop());
+      
+      const myProgressBarDiv = document.querySelector('.progress-bar-div');
+      const myProgressBarDiv_animated = document.querySelector('.progress-bar-animated-div');
+      const totalTimeLabel = document.querySelector('.time-label');
+      const percentValueLabel = document.querySelector('.percentValue-label');
+
+      const uiPercentsLabel = new MySwingUIPercentsLabel(
+        {mySwingCore: mySwingCore, targetLabel: percentValueLabel});
+
+      const uiTotalTimeLabel = new MySwingUITotalTimeLabel(
+        {mySwingCore: mySwingCore, targetLabel: totalTimeLabel});
+
+      const progressBarAnimationOnTimer = new MySwingUIProgressBarAnimationOnTimer(
+        {mySwingCore: mySwingCore, targetDiv: myProgressBarDiv});
+
+      const progressBarAnimationOnCss = new MySwingUIProgressBarAnimationOnCss(
+        {mySwingCore: mySwingCore, targetDiv: myProgressBarDiv_animated});
+
+    </script>
+  </body>
+
+</html>
