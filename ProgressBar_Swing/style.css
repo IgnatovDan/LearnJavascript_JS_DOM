@@ -1,0 +1,39 @@
+/* Styles go here */
+
+body {
+  font-family: Verdana, Arial;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin-top: 0;
+}
+
+.task {
+  border: 1px dotted purple;  
+  padding: 40px;
+}
+
+.status-panel {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container {
+  margin: auto;
+	height: 100px;
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.progress-bar {
+	height: 100%;
+	width: 5%;
+	background: blue;
+	position: relative;
+	left: 0px;
+}
