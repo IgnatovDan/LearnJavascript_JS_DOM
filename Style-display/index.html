@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Syle - display attribute</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        hr {
+            margin-top: 20px
+        }
+        .border1 {
+            border: 1px solid blueviolet;
+        }
+        .border2 {
+            border: 1px solid green
+        }
+        .border3 {
+            border: 1px solid blue
+        }
+        .border4 {
+            border: 1px solid magenta
+        }
+        .border5 {
+            border: 1px solid red
+        }
+    </style>
+</head>
+<body>
+    <hr/>
+    Div
+    <div class="border1">
+        <div class="border2" style="margin: 10px"> asdf</div>
+        <div class="border3" style="margin: 10px; display:none"> 1234</div>
+        <div class="border4" style="margin: 10px"> 3</div>
+    </div>
+
+    <hr/>
+    Span
+    <span class="border1" style="padding: 5px">
+        <span class="border2">1</span>
+        <span class="border3">2</span><span class="border4">3</span>
+    </span>
+
+    <hr/>
+    Span display:block
+    <span class="border1">
+        <span class="border2" style="display: block">1</span>
+        <span class="border3" style="display:block">2</span><span class="border4" style="display:block">3</span>
+    </span>
+
+    <hr/>
+    Span display: inline
+    <span class="border1">
+        <span class="border2" style="display: inline">1</span>
+        <span class="border3" style="display: inline">2</span><span class="border4" style="display:inline">3</span>
+    </span>
+
+    <hr/>
+    Div display: inline
+    <div class="border1" style="padding: 5px">
+        <div class="border2" style="display: inline; width:100px">1</div>
+        <div class="border3" style="display: inline; height:100px">2</div><div class="border4" style="display: inline">3</div>
+    </div>
+    <hr/>
+
+    <hr/>
+    Div display: inline-block
+    <div class="border1">
+        <div class="border2" style="display:inline-block; width:100px">1</div>
+        <div class="border3" style="display:inline-block; height:100px">2</div>
+        <div class="border4" style="display:inline-block">3</div>
+    </div>
+</body
+</html>
