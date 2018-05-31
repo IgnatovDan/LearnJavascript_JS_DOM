@@ -1,0 +1,1 @@
+See https://learn.javascript.ru/task/select-elements-selector
