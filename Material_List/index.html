@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Material - List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.css"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.js"></script>
+
+</head>
+
+<body>
+    <pre>
+https://material.io/develop/web/docs/getting-started/
+https://material.io/tools/icons
+https://material-components.github.io/material-components-web-catalog/#/component/list
+https://material.io/develop/web/components/lists/
+https://material.io/design/components/lists.html#types
+    </pre>
+
+    <ul class="mdc-list">
+        <li class="mdc-list-item">
+            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+            <span class="mdc-list-item__text">
+                item 1
+                <span class="mdc-list-item__secondary-text">
+                    description 1
+                </span>
+            </span>
+        </li>
+        <li class="mdc-list-item">
+            <span class="mdc-list-item__text">
+                item 2
+            </span>
+        </li>
+        <li class="mdc-list-item">
+            <span class="mdc-list-item__graphic">
+                <img src="https://image.flaticon.com/icons/svg/565/565357.svg" height="100%" width="100%"></img>
+            </span>
+            <span class="mdc-list-item__text">
+                item 3
+            </span>
+        </li>
+        <li class="mdc-list-item mdc-ripple-upgraded">
+            <span class="mdc-list-item__graphic material-icons" aria-hidden="true">folder</span>
+            <span class="mdc-list-item__text">
+                item 4
+            </span>
+        </li>
+        <li class="mdc-list-item">
+            <i class="material-icons mdc-list-item__graphic">inbox</i>
+            <span class="mdc-list-item__text">
+                item 1 item 1 item 1 item 1 item 1 item 1 item 1 item 1 item 1
+                <span class="mdc-list-item__secondary-text">
+                    description 1 description 1 description 1 description 1 description 1 
+                </span>
+            </span>
+        </li>
+    </ul>
+
+    <div style="border: dodgerblue 1px solid">
+        <div class="mdc-list-item">
+            <i class="material-icons mdc-list-item__graphic">inbox</i>
+            <span class="mdc-list-item__text">
+                item 1 item 1 item 1 item 1 item 1 item 1 item 1 item 1 item 1
+                <span class="mdc-list-item__secondary-text">
+                    description 1 description 1 description 1 description 1 description 1 
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <style>
+        .xafListItem {
+            font-family: Roboto, sans-serif;
+            display: flex;
+            position: relative;
+            align-items: center;
+            justify-content: flex-start;
+            height: 48px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .xafListItem__image {
+            margin-right: 32px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .xafListItem__text1 {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            color: rgba(0, 0, 0, 0.87);
+        }
+        
+        .xafListItem__text2 {
+            font-size: 0.875rem;
+            color: rgba(0, 0, 0, 0.54);
+            text-overflow: ellipsis;
+            line-height: 1.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
+
+    <div style="border: gray 1px solid">
+        <div class="xafListItem">
+            <img class="xafListItem__image" src="https://image.flaticon.com/icons/svg/565/565357.svg" />
+            <div class="xafListItem__text1">
+                item 1 item 1 item 1 item 1 item 1 item 1 item 1 item 1 item 1 
+                <div class="xafListItem__text2">
+                    text 2 text 2 text 2 text 2 text 2 text 2 text 2 text 2 
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
